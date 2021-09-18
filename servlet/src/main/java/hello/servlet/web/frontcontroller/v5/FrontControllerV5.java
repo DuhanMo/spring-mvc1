@@ -52,11 +52,13 @@ public class FrontControllerV5 extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
         Object handler = getHandler(response, requestURI);
-        if (handler == null) return;
+        if (handler == null) {
+            return;
+        }
         MyHandlerAdapter adapter = getHandlerAdapter(handler);
         ModelView mv = adapter.handle(request, response, handler);
         MyView view = viewResolver(mv.getViewName());
-        view.render(mv.getModel(), request,response);
+        view.render(mv.getModel(), request, response);
     }
 
     private Object getHandler(HttpServletResponse response, String requestURI) {
